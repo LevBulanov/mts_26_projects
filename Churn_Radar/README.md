@@ -129,7 +129,7 @@ result = get_score({
 
 ```
 .
-├── teta_ML_итоговая.ipynb   # EDA, фичи, обучение, инференс, мониторинг
+├── churn_radar.ipynb   # EDA, фичи, обучение, инференс, мониторинг
 ├── churn_radar.html
 └── README.md
 ```
