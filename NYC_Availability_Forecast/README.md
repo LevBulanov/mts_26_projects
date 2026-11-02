@@ -8,7 +8,7 @@
 
 Основной ноутбук: `nyc-availability-forecast.ipynb`. 
 Это соревнование, автор занял пятое место.
-![Мой скриншот](leaderboard.png)
+![Мой скриншот](leaderboard.jpg)
 
 ## Подход
 
