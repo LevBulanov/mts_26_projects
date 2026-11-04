@@ -24,7 +24,7 @@
 
 Стек: Python, LightGBM, lleaves, Optuna, category_encoders, scikit-learn, pandas, NumPy, SciPy, Matplotlib.
 
-Подробнее: [ChurnRadar/README.md](./ChurnRadar/README.md)
+Подробнее: [Churn_Radar/README.md](./Churn_Radar/README.md)
 
 ---
 
