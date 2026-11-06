@@ -6,7 +6,7 @@
 
 | Проект                                                                                                     | Задача | Тип | Ключевой результат |
 |------------------------------------------------------------------------------------------------------------|---|---|---|
-| [ChurnRadar](./Churn_Radar)                                                                                | Бинарная классификация оттока клиентов телеком-оператора | Итоговая работа по модулю ML | Test F1 = 0.650, инференс одной записи менее 0.1 мс |
+| [ChurnRadar](./Churn_Radar)                                                                                | Бинарная классификация оттока клиентов телеком-оператора | Портфолио · ML | Test F1 = 0,6498, p99 = 0,051 мс на Windows |
 | [Analysis of Pricing Factors for Lending Club Loans](./Analysis_of_Pricing_Factors_for_Lending_Club_Loans) | Регрессионный анализ процентной ставки по P2P-кредитам | Итоговая работа по статистике и эконометрике | OLS с робастными ошибками HC3, R² = 0.440 |
 | [NYC Availability Forecast](./NYC_Availability_Forecast)                                                   | Прогноз числа дней доступности объявления об аренде в Нью-Йорке | ML-соревнование | Пятое место, RMSE около 93 дней |
 
@@ -14,17 +14,13 @@
 
 ## ChurnRadar
 
-Сверхбыстрый скоринг оттока клиентов телеком-оператора на LightGBM с упором на production-инференс и мониторинг дрифта без истинных меток.
+ChurnRadar оценивает риск оттока абонента по данным о платежах, звонках, трафике и тарифах.
 
-- **Модель:** LightGBM, 5-fold `StratifiedKFold`, гиперпараметры подобраны многокритериальным Optuna (F1 против сложности модели).
-- **Признаки:** флаги пропусков, парсинг строки `pack`, восстановление счётчиков после обфускации, производные показатели, `CatBoostEncoder`.
-- **Инференс:** модель скомпилирована через `lleaves`, пайплайн на чистом Python, один поток CPU, функция `get_score(dict_input)` укладывается в 0.1 мс.
-- **Мониторинг:** класс `InputDriftMonitor` (PSI, KS, доля положительных предсказаний, unseen rate), накладные расходы около 6 мкс на событие.
-- **Метрики:** OOF ROC-AUC 0.9031, OOF F1 0.6521, Test F1 0.6501.
+- **Обучение:** LightGBM, пять стратифицированных фолдов, `CatBoostEncoder` внутри фолдов и подбор порога по OOF.
+- **Скоринг:** `get_score(record)` обрабатывает один словарь, модель компилируется через `lleaves` и выполняется на одном потоке CPU.
+- **Мониторинг:** PSI, доля новых категорий и доля прогнозов оттока на последовательных окнах.
 
-Стек: Python, LightGBM, lleaves, Optuna, category_encoders, scikit-learn, pandas, NumPy, SciPy, Matplotlib.
-
-Подробнее: [Churn_Radar/README.md](./Churn_Radar/README.md)
+[Инструкция для Windows и результаты](./Churn_Radar/README.md)
 
 ---
 
@@ -66,9 +62,10 @@
 ```text
 .
 ├── README.md
-├── ChurnRadar/
+├── Churn_Radar/
 │   ├── churn_radar.ipynb
 │   ├── churn_radar.html
+│   ├── requirements.txt
 │   └── README.md
 ├── Analysis_of_Pricing_Factors_for_Lending_Club_Loans/
 │   ├── analysis_of_pricing_factors_for_lending_club_loans.ipynb
